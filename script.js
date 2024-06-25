@@ -31,8 +31,8 @@ const dataDiv = document.createElement("div");
 dataDiv.style.display = "none";
 
 if (localStorage.getItem("myLibrary") === null) {
-    localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
     myLibrary = [book1, book2];
+    localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
 } else {
     document.querySelector("#sample-one").parentNode.removeChild(document.querySelector("#sample-one"));
     document.querySelector("#sample-two").parentNode.removeChild(document.querySelector("#sample-two"));
@@ -206,7 +206,9 @@ function deleteBook(e) {
     const index = e.target.dataset.index;
 
     e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
+
     updateIndices();
+
     removeBookFromLibrary(index);
 }
 
@@ -257,17 +259,16 @@ function editBook(e) {
 }
 
 function updateIndices() {
-    let array = Array.from(table.childNodes);
+    let trArray = Array.from(document.querySelectorAll("tr"));
+    trArray.splice(0, 1);
     let count = 0;
 
-    array.forEach((node) => {
-        if (node.nodeName === "tr") {
-            let img1 = node.querySelector("img[src$=\"delete.svg\"]");
-            let img2 = node.querySelector("img[src$=\"pencil.svg\"]");
+    trArray.forEach((node) => {
+        let img1 = node.querySelector("img[src$=\"delete.svg\"]");
+        let img2 = node.querySelector("img[src$=\"pencil.svg\"]");
 
-            img1.dataset.index = count;
-            img2.dataset.index = count;
-            count++;
-        }
+        img1.dataset.index = count;
+        img2.dataset.index = count;
+        count++;
     })
 }
