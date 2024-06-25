@@ -7,6 +7,7 @@ body {
 }
 
 div:first-child {
+    display: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,22 +46,24 @@ h3 {
 div:last-child {
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-grow: 5;
+    align-items: start;
+    flex-grow: 4;
+    overflow: auto;
+    padding: 2rem;
 }
 
 table {
-    width: 80%;
+    width: 90%;
 }
 
-th:not(tr > th:first-child), td {
+th:not(.ignore), td {
     color: black;
     text-align: center;
     padding: 1rem;
     border: 2px solid black;
 }
 
-th:not(tr > th:first-child) {
+th:not(.ignore) {
     background-color: grey;
     color: white;
     font-size: larger;
@@ -70,3 +73,6 @@ tr > td:first-child {
     background-color: lightgrey;
 }
 
+img {
+    width: 2.5rem;
+}
