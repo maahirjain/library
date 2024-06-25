@@ -205,8 +205,9 @@ cancelFormBtn.addEventListener("click", (e) => {
 function deleteBook(e) {
     const index = e.target.dataset.index;
 
-    removeBookFromLibrary(index);
     e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
+    updateIndices();
+    removeBookFromLibrary(index);
 }
 
 function editBook(e) {
@@ -253,4 +254,20 @@ function editBook(e) {
     document.querySelector("#read").checked = read;
 
     dataDiv.textContent = index;
+}
+
+function updateIndices() {
+    let array = Array.from(table.childNodes);
+    let count = 0;
+
+    array.forEach((node) => {
+        if (node.nodeName === "tr") {
+            let img1 = node.querySelector("img[src$=\"delete.svg\"]");
+            let img2 = node.querySelector("img[src$=\"pencil.svg\"]");
+
+            img1.dataset.index = count;
+            img2.dataset.index = count;
+            count++;
+        }
+    })
 }
