@@ -1,0 +1,72 @@
+body {
+    display: flex;
+    color: white;
+    font-family: "Julius Sans One", Arial, Helvetica, sans-serif;
+    height: 100vh;
+    margin: 0;
+}
+
+div:first-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-grow: 1;
+    background-color: palevioletred;
+    position: relative;
+    border-right: 15px solid black;
+}
+
+h1 {
+    font-size: 5rem;
+    margin: 0;
+}
+
+button {
+    background-color: plum;
+    color: white;
+    font-family: "Julius Sans One", Arial, Helvetica, sans-serif;
+    font-size: x-large;
+    font-weight: bolder;
+    width: 50%;
+    height: 8%;
+    border-radius: 20px;
+    border: 2px solid white;
+}
+
+h3 {
+    font-size: 1.5rem;
+    position: absolute;
+    bottom: 1rem;
+    margin: 0;
+}
+
+div:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 5;
+}
+
+table {
+    width: 80%;
+}
+
+th:not(tr > th:first-child), td {
+    color: black;
+    text-align: center;
+    padding: 1rem;
+    border: 2px solid black;
+}
+
+th:not(tr > th:first-child) {
+    background-color: grey;
+    color: white;
+    font-size: larger;
+}
+
+tr > td:first-child {
+    background-color: lightgrey;
+}
+
