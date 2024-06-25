@@ -28,7 +28,13 @@ document.querySelectorAll("img[src$=\"pencil.svg\"]").forEach(node => node.addEv
 
 addBookBtn.addEventListener("click", () => {
     dialog.show();
-    div.style.marginTop = "-20rem";
+
+    if (screen.width > 890 && document.documentElement.clientWidth > 890) {
+        div.style.marginTop = "-20rem";
+    } else {
+        dialog.style.marginTop = "-13rem";
+    }
+
     addBookBtn.style.visibility = "hidden";
 });
 
@@ -182,7 +188,13 @@ function editBook(e) {
     let read = (readElement.childNodes[0].childNodes[0].getAttribute("fill") === "green") ? true : false;
 
     dialog.show();
-    div.style.marginTop = "-20rem";
+
+    if (screen.width > 890 && document.documentElement.clientWidth > 890) {
+        div.style.marginTop = "-20rem";
+    } else {
+        dialog.style.marginTop = "-13rem";
+    }
+
     addBookBtn.style.visibility = "hidden";
 
     addFormBtn.textContent = "Replace";

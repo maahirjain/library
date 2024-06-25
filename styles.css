@@ -1,3 +1,7 @@
+html {
+    width: 100vw;
+}
+
 body {
     display: flex;
     color: black;
@@ -16,6 +20,7 @@ body > div:first-child {
     background-color: #097969;
     position: relative;
     border-right: 15px solid black;
+    padding: 0 1rem;
 }
 
 h1 {
@@ -50,6 +55,7 @@ dialog {
     position: absolute;
     top: calc(100% + 1rem);
     border-radius: 10px;
+    z-index: 5;
 }
 
 form {
@@ -108,4 +114,32 @@ tr > td:first-child {
 
 img {
     width: 2.5rem;
+}
+
+@media only screen and (max-width: 890px) {
+    body {
+        flex-direction: column;
+    }
+
+    body > div:first-child {
+        border: none;
+    }
+
+    .addBtn {
+        width: 40%;
+        height: 300%;
+        margin-bottom: 5rem;
+    }
+
+    /* body > div:first-child {
+        display: none;
+    } */
+
+    th:not(.ignore), td {
+        padding: 0;
+    }
+
+    table {
+        font-size: small;
+    }
 }
