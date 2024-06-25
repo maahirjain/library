@@ -20,6 +20,8 @@ const dialog = document.querySelector("dialog");
 const div = document.querySelector("body > div:first-child");
 const table = document.querySelector("table");
 
+document.querySelectorAll("img[src$=\"delete.svg\"]").forEach(node => node.addEventListener("click", deleteBook));
+
 addBookBtn.addEventListener("click", () => {
     dialog.show();
     div.style.marginTop = "-20rem";
@@ -31,8 +33,6 @@ addFormBtn.addEventListener("click", (e) => {
 
     const tr = document.createElement("tr");
 
-    const td1 = document.createElement("td");
-    td1.textContent = myLibrary.length + 1;
     const td2 = document.createElement("td");
     td2.textContent = document.querySelector("#title").value;
     const td3 = document.createElement("td");
@@ -46,11 +46,10 @@ addFormBtn.addEventListener("click", (e) => {
         td5.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path fill=\"red\" d=\"M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z\" /></svg>";
     }
     const td6 = document.createElement("td");
-    td6.innerHTML = "<img src=\"./icons/pencil.svg\" alt=\"Edit icon\">";
+    td6.innerHTML = `<img src=\"./icons/pencil.svg\" alt=\"Edit icon\" data-index=\"${myLibrary.length}\">`;
     const td7 = document.createElement("td");
-    td7.innerHTML = "<img src=\"./icons/delete.svg\" alt=\"Delete icon\">";
+    td7.innerHTML = `<img src=\"./icons/delete.svg\" alt=\"Delete icon\" data-index=\"${myLibrary.length}\">`;
 
-    tr.appendChild(td1);
     tr.appendChild(td2);
     tr.appendChild(td3);
     tr.appendChild(td4);
@@ -63,6 +62,8 @@ addFormBtn.addEventListener("click", (e) => {
     addBookToLibrary(new Book(document.querySelector("#title").value, document.querySelector("#author").value, document.querySelector("#pages").value, document.querySelector("#read").checked));
 
     document.querySelectorAll("input").forEach((node) => node.value = "");
+
+    document.querySelectorAll("img[src$=\"delete.svg\"]").forEach(node => node.addEventListener("click", deleteBook));
 });
 
 cancelFormBtn.addEventListener("click", (e) => {
@@ -73,4 +74,11 @@ cancelFormBtn.addEventListener("click", (e) => {
     div.style.marginTop = "0";
     addBookBtn.style.visibility = "visible";
 })
+
+function deleteBook(e) {
+    const index = e.target.dataset.index;
+
+    removeBookFromLibrary(index);
+    e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
+}
 
