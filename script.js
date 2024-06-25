@@ -1,7 +1,7 @@
 const book1 = new Book("Sapiens: A Brief History of Humankind", "Yuval Noah Harari", 464, true);
 const book2 = new Book("Frankenstein", "Mary Shelley", 216, false);
 
-const myLibrary = [book1, book2];
+let myLibrary = [];
 
 function Book(title, author, pages, read) {
     this.title = title;
@@ -10,8 +10,15 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
-function addBookToLibrary(book) { myLibrary.push(book); }
-function removeBookFromLibrary(index) { myLibrary.splice(index, 1); }
+function addBookToLibrary(book) { 
+    myLibrary.push(book); 
+    localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+}
+
+function removeBookFromLibrary(index) { 
+    myLibrary.splice(index, 1); 
+    localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+}
 
 const addBookBtn = document.querySelector(".addBtn");
 const addFormBtn = document.querySelector(".addFormBtn");
@@ -22,6 +29,46 @@ const table = document.querySelector("table");
 
 const dataDiv = document.createElement("div");
 dataDiv.style.display = "none";
+
+if (localStorage.getItem("myLibrary") === null) {
+    localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+    myLibrary = [book1, book2];
+} else {
+    document.querySelector("#sample-one").parentNode.removeChild(document.querySelector("#sample-one"));
+    document.querySelector("#sample-two").parentNode.removeChild(document.querySelector("#sample-two"));
+
+    myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
+
+    myLibrary.forEach((obj => {
+        const tr = document.createElement("tr");
+
+        const td2 = document.createElement("td");
+        td2.textContent = obj.title;
+        const td3 = document.createElement("td");
+        td3.textContent = obj.author;
+        const td4 = document.createElement("td");
+        td4.textContent = obj.pages;
+        const td5 = document.createElement("td");
+        if (obj.read) {
+            td5.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path fill=\"green\" d=\"M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z\" /></svg>";
+        } else {
+            td5.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path fill=\"red\" d=\"M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z\" /></svg>";
+        }
+        const td6 = document.createElement("td");
+        td6.innerHTML = `<img src=\"./icons/pencil.svg\" alt=\"Edit icon\" data-index=\"${myLibrary.indexOf(obj)}\">`;
+        const td7 = document.createElement("td");
+        td7.innerHTML = `<img src=\"./icons/delete.svg\" alt=\"Delete icon\" data-index=\"${myLibrary.indexOf(obj)}\">`;
+
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+        tr.appendChild(td5);
+        tr.appendChild(td6);
+        tr.appendChild(td7);
+
+        table.appendChild(tr);
+    }))
+}
 
 document.querySelectorAll("img[src$=\"delete.svg\"]").forEach(node => node.addEventListener("click", deleteBook));
 document.querySelectorAll("img[src$=\"pencil.svg\"]").forEach(node => node.addEventListener("click", editBook));
@@ -111,6 +158,7 @@ addFormBtn.addEventListener("click", (e) => {
         }
 
         myLibrary[index] = new Book(title, author, pages, read);
+        localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
         addFormBtn.textContent = "Add";
     }
 
