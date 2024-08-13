@@ -82,6 +82,10 @@ h3 {
     margin: 0;
 }
 
+a {
+    color: white;
+}
+
 body > div:last-child {
     display: flex;
     justify-content: center;
