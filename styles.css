@@ -135,10 +135,6 @@ img {
         margin-bottom: 5rem;
     }
 
-    /* body > div:first-child {
-        display: none;
-    } */
-
     th:not(.ignore), td {
         padding: 0;
     }
